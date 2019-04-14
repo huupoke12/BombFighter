@@ -1,6 +1,5 @@
-
-#include "src/MainControl.cpp"
-
+#include "MainControl.h"
+#include "constants.h"
 
 int main() {
 

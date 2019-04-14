@@ -1,47 +1,56 @@
-#include <vector>
+#include "Player.h"
+#include "constants.h"
 
-#include "Bomb.cpp"
-
-class Player {
-private:
-    int x, y, speed, health;
-    size_t max_bomb;
-    char direction;
-    std::vector<Bomb> bomb_bag;
-
-public:
-    Player(int _x, int _y, int _direction) {
-        health = PLAYER_INITIAL_HEALTH;
-        speed = PLAYER_INITIAL_SPEED;
-        max_bomb = PLAYER_INITIAL_MAX_BOMB;
-        direction = _direction;
+// Constructor
+Player::Player(int _x, int _y, char _direction) {
+    health = PLAYER_INITIAL_HEALTH;
+    speed = PLAYER_INITIAL_SPEED;
+    max_bomb = PLAYER_INITIAL_MAX_BOMB;
+    direction = _direction;
+}
+void Player::moveLeft() {
+    x -= speed;
+    direction = PLAYER_DIRECTION_LEFT;
+}
+void Player::moveRight() {
+    x += speed;
+    direction = PLAYER_DIRECTION_RIGHT;
+}
+void Player::moveUp() {
+    y -= speed;
+    direction = PLAYER_DIRECTION_UP;
+}
+void Player::moveDown() {
+    y += speed;
+    direction = PLAYER_DIRECTION_DOWN;
+}
+void Player::injure(int damage) {
+    health -= damage;
+}
+void Player::createBomb() {
+    bomb_bag.push_back(Bomb(x, y));
+}
+void Player::throwBomb() {
+    int bomb_dx = 0;
+    int bomb_dy = 0;
+    switch (direction) {
+    case PLAYER_DIRECTION_LEFT:
+        bomb_dx = -BOMB_INITIAL_SPEED;
+        break;
+    case PLAYER_DIRECTION_RIGHT:
+        bomb_dx = BOMB_INITIAL_SPEED;
+        break;
+    case PLAYER_DIRECTION_UP:
+        bomb_dy = -BOMB_INITIAL_SPEED;
+        break;
+    case PLAYER_DIRECTION_DOWN:
+        bomb_dy = BOMB_INITIAL_SPEED;
+        break;
+    default:
+        break;
     }
-    void moveLeft() {
-        x -= speed;
-        direction = PLAYER_DIRECTION_LEFT;
-    }
-    void moveRight() {
-        x += speed;
-        direction = PLAYER_DIRECTION_RIGHT;
-    }
-    void moveUp() {
-        y -= speed;
-        direction = PLAYER_DIRECTION_UP;
-    }
-    void moveDown() {
-        y += speed;
-        direction = PLAYER_DIRECTION_DOWN;
-    }
-    void injure(int damage) {
-        health -= damage;
-    }
-    void createBomb() {
-        bomb_bag.push_back(Bomb(x, y, 0, 0));
-    }
-    void throwBomb() {
-
-    }
-    bool isDead() {
-        return (health <= 0) ? true : false;
-    }
-};
+    bomb_bag.back().beingThrown(bomb_dx, bomb_dy);
+}
+bool Player::isDead() {
+    return (health <= 0) ? true : false;
+}
