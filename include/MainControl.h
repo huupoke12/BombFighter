@@ -18,7 +18,6 @@ public:
     ~MainControl();
     void logSDLError(const std::string& message, std::ostream& error_stream);
     int init();
-    void destroy();
     void runMainLoop();
 };
 

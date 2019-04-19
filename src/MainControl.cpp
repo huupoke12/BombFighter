@@ -13,6 +13,9 @@ MainControl::MainControl(const char* _title, int _width, int _height) {
 
 // Destructor
 MainControl::~MainControl() {
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
 }
 
 void MainControl::logSDLError(const std::string& message, std::ostream& error_stream = std::cerr) {
@@ -39,15 +42,10 @@ int MainControl::init() {
         SDL_Quit();
         return 3;
     }
-
     return 0;
+
 }
 
-void MainControl::destroy() {
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    SDL_Quit();
-}
 
 void MainControl::runMainLoop() {
     bool quit = false;

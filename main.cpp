@@ -9,8 +9,6 @@ int main(int argc, char *argv[]) {
     }
 
     control.runMainLoop();
-
-    control.destroy();
     return 0;
 }
 
