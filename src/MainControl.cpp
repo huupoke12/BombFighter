@@ -12,6 +12,9 @@ MainControl::MainControl(const char* _title, int _width, int _height, int _fps) 
     window_height = _height;
     window_fps = _fps;
     quit = false;
+    lastTime = 0;
+    currentTime = 0;
+    dt = 0;
 }
 
 // Destructor
@@ -101,7 +104,6 @@ int MainControl::init() {
     player2.init(PLAYER2_INITIAL_X, PLAYER2_INITIAL_Y, PLAYER_INITIAL_WIDTH, PLAYER_INITIAL_HEIGHT, PLAYER_INITIAL_SPEED, PLAYER_INITIAL_HEALTH, PLAYER_INITIAL_MAX_BOMB, PLAYER2_INITIAL_DIRECTION);
 
     runMainLoop();
-
     return 0;
 
 }
@@ -109,10 +111,10 @@ int MainControl::init() {
 
 void MainControl::runMainLoop() {
     unsigned int delay = 1000/window_fps;
-    unsigned int lastTime, currentTime;
+    lastTime = SDL_GetTicks();
     while (!quit) {
-        lastTime = SDL_GetTicks();
         handleInput();
+        updatePlayer();
         SDL_RenderClear(renderer);
         renderBackground();
         renderPlayer();
@@ -121,9 +123,11 @@ void MainControl::runMainLoop() {
 
         // Delay
         currentTime = SDL_GetTicks();
+        dt = currentTime - lastTime;
         if (currentTime < lastTime + delay) {
             SDL_Delay(lastTime + delay - currentTime);
         }
+        lastTime = SDL_GetTicks();
     }
 }
 
@@ -168,6 +172,11 @@ void MainControl::handleInput() {
             }
         }
     }
+}
+
+void MainControl::updatePlayer() {
+    player1.setTime(dt);
+    player2.setTime(dt);
 }
 
 void MainControl::renderBackground() {

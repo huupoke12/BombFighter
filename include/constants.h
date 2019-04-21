@@ -8,7 +8,7 @@ const char GAME_TITLE[] = "Bomb Fighter";
 
 const int WINDOW_INITIAL_WIDTH = 1280;
 const int WINDOW_INITIAL_HEIGHT = 720;
-const int WINDOW_INITIAL_FPS = 240;
+const int WINDOW_INITIAL_FPS = 120;
 
 // Direction
 const char DIRECTION_UP = '2';
@@ -19,7 +19,7 @@ const char DIRECTION_DOWN = '8';
 // Player
 
 const int PLAYER_INITIAL_HEALTH = 100;
-const int PLAYER_INITIAL_SPEED = WINDOW_INITIAL_WIDTH / 50;
+const int PLAYER_INITIAL_SPEED = WINDOW_INITIAL_WIDTH / 2;
 const int PLAYER_INITIAL_MAX_BOMB = 3;
 
 const int PLAYER_INITIAL_WIDTH = 100;

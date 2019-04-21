@@ -13,10 +13,10 @@ private:
     SDL_Renderer *renderer;
     SDL_Event event;
     std::string window_title;
-    int window_width;
-    int window_height;
+    int window_width, window_height;
     int window_fps;
     bool quit;
+    unsigned int lastTime, currentTime, dt;
 
     // Resources
     std::string background_image_path;
@@ -40,6 +40,7 @@ public:
     int init();
     void runMainLoop();
     void handleInput();
+    void updatePlayer();
     void renderBackground();
     void renderPlayer();
     void renderBomb();

@@ -11,13 +11,15 @@ private:
     int max_bomb;
     char direction;
     std::vector<Bomb> bomb_bag;
+    unsigned int dt;
 
 public:
-    void init(int _x, int _y, int _width, int _height, int speed, int _health, int max_bomb, char _direction);
+    void init(int _x, int _y, int _width, int _height, int _speed, int _health, int _max_bomb, char _direction);
     int getX();
     int getY();
     int getWidth();
     int getHeight();
+    void setTime(unsigned int dt);
     void moveLeft();
     void moveRight();
     void moveUp();

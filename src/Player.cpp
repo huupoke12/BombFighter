@@ -23,28 +23,36 @@ int Player::getWidth() {
 int Player::getHeight() {
     return height;
 }
-// TODO: Replace the constants by present width and height
+void Player::setTime(unsigned int _dt) {
+    dt = _dt;
+}
+
+// TODO: Replace the constants by variables
 void Player::moveLeft() {
-    if (x - speed - width / 2 >= 0){
-        x -= speed;
+    double dx = (speed * dt / 1000);
+    if (x - dx - width / 2 >= 0){
+        x -= dx;
     }
     direction = DIRECTION_LEFT;
 }
 void Player::moveRight() {
-    if (x + speed + width / 2 <= WINDOW_INITIAL_WIDTH){
-        x += speed;
+    double dx = (speed * dt / 1000);
+    if (x + dx + width / 2 <= WINDOW_INITIAL_WIDTH){
+        x += dx;
     }
     direction = DIRECTION_RIGHT;
 }
 void Player::moveUp() {
-    if (y - speed - height / 2 >= 0){
-        y -= speed;
+    double dy = (speed * dt / 1000);
+    if (y - dy - height / 2 >= 0){
+        y -= dy;
     }
     direction = DIRECTION_UP;
 }
 void Player::moveDown() {
-    if (y + speed + height / 2 <= WINDOW_INITIAL_HEIGHT){
-        y += speed;
+    double dy = (speed * dt / 1000);
+    if (y + dy + height / 2 <= WINDOW_INITIAL_HEIGHT){
+        y += dy;
     }
     direction = DIRECTION_DOWN;
 }
