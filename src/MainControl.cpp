@@ -57,7 +57,7 @@ int MainControl::init() {
         return 3;
     }
 
-    // Playground Init
+    // Background Init
     background_image_path = RESOURCE_BACKGROUND_PATH;
     background_image_texture = nullptr;
     SDL_Surface *background_image_surface = nullptr;
@@ -136,6 +136,32 @@ void MainControl::handleInput() {
             switch (event.key.keysym.sym) {
                 case SDLK_ESCAPE:
                     quit = true;
+                    break;
+            }
+            switch (event.key.keysym.scancode) {
+                case SDL_SCANCODE_W:
+                    player1.moveUp();
+                    break;
+                case SDL_SCANCODE_S:
+                    player1.moveDown();
+                    break;
+                case SDL_SCANCODE_A:
+                    player1.moveLeft();
+                    break;
+                case SDL_SCANCODE_D:
+                    player1.moveRight();
+                    break;
+                case SDL_SCANCODE_UP:
+                    player2.moveUp();
+                    break;
+                case SDL_SCANCODE_DOWN:
+                    player2.moveDown();
+                    break;
+                case SDL_SCANCODE_LEFT:
+                    player2.moveLeft();
+                    break;
+                case SDL_SCANCODE_RIGHT:
+                    player2.moveRight();
                     break;
                 default:
                     break;

@@ -23,20 +23,29 @@ int Player::getWidth() {
 int Player::getHeight() {
     return height;
 }
+// TODO: Replace the constants by present width and height
 void Player::moveLeft() {
-    x -= speed;
+    if (x - speed - width / 2 >= 0){
+        x -= speed;
+    }
     direction = DIRECTION_LEFT;
 }
 void Player::moveRight() {
-    x += speed;
+    if (x + speed + width / 2 <= WINDOW_INITIAL_WIDTH){
+        x += speed;
+    }
     direction = DIRECTION_RIGHT;
 }
 void Player::moveUp() {
-    y -= speed;
+    if (y - speed - height / 2 >= 0){
+        y -= speed;
+    }
     direction = DIRECTION_UP;
 }
 void Player::moveDown() {
-    y += speed;
+    if (y + speed + height / 2 <= WINDOW_INITIAL_HEIGHT){
+        y += speed;
+    }
     direction = DIRECTION_DOWN;
 }
 void Player::injure(int damage) {
