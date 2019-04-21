@@ -1,8 +1,7 @@
 #include "Player.h"
 #include "constants.h"
 
-// Constructor
-Player::Player(int _x, int _y, char _direction) {
+void Player::init(int _x, int _y, char _direction) {
     health = PLAYER_INITIAL_HEALTH;
     speed = PLAYER_INITIAL_SPEED;
     max_bomb = PLAYER_INITIAL_MAX_BOMB;

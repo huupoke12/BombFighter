@@ -13,7 +13,7 @@ private:
     std::vector<Bomb> bomb_bag;
 
 public:
-    Player(int _x, int _y, char _direction);
+    void init(int _x, int _y, char _direction);
     void moveLeft();
     void moveRight();
     void moveUp();

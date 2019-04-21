@@ -8,6 +8,7 @@ const char GAME_TITLE[] = "Bomb Fighter";
 
 const int WINDOW_INITIAL_WIDTH = 1280;
 const int WINDOW_INITIAL_HEIGHT = 720;
+const int WINDOW_INITIAL_FPS = 240;
 
 // Player
 
@@ -29,5 +30,8 @@ const int PLAYER2_INITIAL_Y = PLAYER1_INITIAL_Y;
 const int BOMB_INITIAL_TIME = 5;
 const int BOMB_INITIAL_RADIUS = WINDOW_INITIAL_WIDTH / 100;
 const int BOMB_INITIAL_SPEED = WINDOW_INITIAL_WIDTH / 20;
+
+// Resources
+const char RESOURCE_BACKGROUND_PATH[] = "res/image/background.jpg";
 
 #endif // CONSTANTS_H_INCLUDED
