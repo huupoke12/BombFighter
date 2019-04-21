@@ -9,6 +9,7 @@ MainControl::MainControl(const char* _title, int _width, int _height) {
     window_title = _title;
     window_width = _width;
     window_height = _height;
+    quit = false;
 }
 
 // Destructor
@@ -22,13 +23,13 @@ void MainControl::logSDLError(const std::string& message, std::ostream& error_st
     error_stream << message << " error: " << SDL_GetError() << std::endl;
 }
 
-int MainControl::init() {
+int MainControl::initSDL() {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         logSDLError("SDL_Init");
         return 1;
     }
 
-    SDL_Window *window = SDL_CreateWindow(window_title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, window_width, window_height, 0);
+    SDL_Window *window = SDL_CreateWindow(window_title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, window_width, window_height, 0);
     if (window == nullptr) {
         logSDLError("SDL_CreateWindow");
         SDL_Quit();
@@ -46,33 +47,46 @@ int MainControl::init() {
 
 }
 
-
-void MainControl::runMainLoop() {
-    bool quit = false;
-    SDL_Event event;
-
+int MainControl::initPlayground() {
     Player player1(PLAYER1_INITIAL_X, PLAYER1_INITIAL_Y, PLAYER_DIRECTION_RIGHT);
     Player player2(PLAYER2_INITIAL_X, PLAYER2_INITIAL_Y, PLAYER_DIRECTION_LEFT);
+}
 
 
+void MainControl::runMainLoop() {
     while (!quit) {
-        while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_QUIT) {
-                quit = true;
-            }
-            if (event.type == SDL_KEYDOWN) {
-                switch (event.key.keysym.sym) {
-                    case SDLK_ESCAPE:
-                        quit = true;
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-
+        handleInput();
         SDL_RenderClear(renderer);
+        renderBackground();
+        renderPlayer();
+        renderBomb();
         SDL_RenderPresent(renderer);
     }
+}
+
+void MainControl::handleInput() {
+    while (SDL_PollEvent(&event)) {
+        if (event.type == SDL_QUIT) {
+            quit = true;
+        }
+        if (event.type == SDL_KEYDOWN) {
+            switch (event.key.keysym.sym) {
+                case SDLK_ESCAPE:
+                    quit = true;
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+}
+
+void MainControl::renderBackground() {
+}
+
+void MainControl::renderPlayer() {
+}
+
+void MainControl::renderBomb() {
 }
 

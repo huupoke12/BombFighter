@@ -6,6 +6,8 @@ Player::Player(int _x, int _y, char _direction) {
     health = PLAYER_INITIAL_HEALTH;
     speed = PLAYER_INITIAL_SPEED;
     max_bomb = PLAYER_INITIAL_MAX_BOMB;
+    x = _x;
+    y = _y;
     direction = _direction;
 }
 void Player::moveLeft() {
