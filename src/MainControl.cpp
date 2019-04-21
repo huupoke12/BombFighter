@@ -126,6 +126,7 @@ void MainControl::runMainLoop() {
         dt = currentTime - lastTime;
         if (currentTime < lastTime + delay) {
             SDL_Delay(lastTime + delay - currentTime);
+            dt = delay;
         }
         lastTime = SDL_GetTicks();
     }
