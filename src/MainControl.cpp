@@ -175,13 +175,13 @@ void MainControl::renderBackground() {
 }
 
 void MainControl::renderPlayer() {
-    player1_rect.x = player1.getX();
-    player1_rect.y = player1.getY();
+    player1_rect.x = player1.getX() - player1.getWidth() / 2;
+    player1_rect.y = player1.getY() - player1.getHeight() / 2;
     player1_rect.w = player1.getWidth();
     player1_rect.h = player1.getHeight();
 
-    player2_rect.x = player2.getX();
-    player2_rect.y = player2.getY();
+    player2_rect.x = player2.getX() - player2.getWidth() / 2;
+    player2_rect.y = player2.getY() - player2.getHeight() / 2;
     player2_rect.w = player2.getWidth();
     player2_rect.h = player2.getHeight();
 
