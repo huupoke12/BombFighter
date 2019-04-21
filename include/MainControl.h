@@ -21,10 +21,16 @@ private:
     // Resources
     std::string background_image_path;
     SDL_Texture *background_image_texture;
+    std::string player1_image_path;
+    SDL_Texture *player1_image_texture;
+    std::string player2_image_path;
+    SDL_Texture *player2_image_texture;
 
     // Player
     Player player1;
+    SDL_Rect player1_rect;
     Player player2;
+    SDL_Rect player2_rect;
 
 
 public:

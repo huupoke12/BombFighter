@@ -10,16 +10,23 @@ const int WINDOW_INITIAL_WIDTH = 1280;
 const int WINDOW_INITIAL_HEIGHT = 720;
 const int WINDOW_INITIAL_FPS = 240;
 
+// Direction
+const char DIRECTION_UP = '2';
+const char DIRECTION_LEFT = '4';
+const char DIRECTION_RIGHT = '6';
+const char DIRECTION_DOWN = '8';
+
 // Player
 
 const int PLAYER_INITIAL_HEALTH = 100;
 const int PLAYER_INITIAL_SPEED = WINDOW_INITIAL_WIDTH / 50;
-const int PLAYER_INITIAL_MAX_BOMB = 2;
+const int PLAYER_INITIAL_MAX_BOMB = 3;
 
-const char PLAYER_DIRECTION_UP = '2';
-const char PLAYER_DIRECTION_LEFT = '4';
-const char PLAYER_DIRECTION_RIGHT = '6';
-const char PLAYER_DIRECTION_DOWN = '8';
+const int PLAYER_INITIAL_WIDTH = 100;
+const int PLAYER_INITIAL_HEIGHT = 100;
+
+const char PLAYER1_INITIAL_DIRECTION = DIRECTION_RIGHT;
+const char PLAYER2_INITIAL_DIRECTION = DIRECTION_LEFT;
 
 const int PLAYER1_INITIAL_X = WINDOW_INITIAL_WIDTH / 4;
 const int PLAYER1_INITIAL_Y = WINDOW_INITIAL_HEIGHT / 2;
@@ -33,5 +40,7 @@ const int BOMB_INITIAL_SPEED = WINDOW_INITIAL_WIDTH / 20;
 
 // Resources
 const char RESOURCE_BACKGROUND_PATH[] = "res/image/background.jpg";
+const char RESOURCE_PLAYER1_PATH[] = "res/image/player1.png";
+const char RESOURCE_PLAYER2_PATH[] = "res/image/player2.png";
 
 #endif // CONSTANTS_H_INCLUDED

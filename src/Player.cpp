@@ -1,29 +1,43 @@
 #include "Player.h"
 #include "constants.h"
 
-void Player::init(int _x, int _y, char _direction) {
-    health = PLAYER_INITIAL_HEALTH;
-    speed = PLAYER_INITIAL_SPEED;
-    max_bomb = PLAYER_INITIAL_MAX_BOMB;
+void Player::init(int _x, int _y, int _width, int _height, int _speed, int _health, int _max_bomb, char _direction) {
     x = _x;
     y = _y;
+    width = _width;
+    height = _height;
+    speed = _speed;
+    health = _health;
+    max_bomb = _max_bomb;
     direction = _direction;
+}
+int Player::getX() {
+    return x;
+}
+int Player::getY() {
+    return y;
+}
+int Player::getWidth() {
+    return width;
+}
+int Player::getHeight() {
+    return height;
 }
 void Player::moveLeft() {
     x -= speed;
-    direction = PLAYER_DIRECTION_LEFT;
+    direction = DIRECTION_LEFT;
 }
 void Player::moveRight() {
     x += speed;
-    direction = PLAYER_DIRECTION_RIGHT;
+    direction = DIRECTION_RIGHT;
 }
 void Player::moveUp() {
     y -= speed;
-    direction = PLAYER_DIRECTION_UP;
+    direction = DIRECTION_UP;
 }
 void Player::moveDown() {
     y += speed;
-    direction = PLAYER_DIRECTION_DOWN;
+    direction = DIRECTION_DOWN;
 }
 void Player::injure(int damage) {
     health -= damage;
@@ -35,16 +49,16 @@ void Player::throwBomb() {
     int bomb_dx = 0;
     int bomb_dy = 0;
     switch (direction) {
-    case PLAYER_DIRECTION_LEFT:
+    case DIRECTION_LEFT:
         bomb_dx = -BOMB_INITIAL_SPEED;
         break;
-    case PLAYER_DIRECTION_RIGHT:
+    case DIRECTION_RIGHT:
         bomb_dx = BOMB_INITIAL_SPEED;
         break;
-    case PLAYER_DIRECTION_UP:
+    case DIRECTION_UP:
         bomb_dy = -BOMB_INITIAL_SPEED;
         break;
-    case PLAYER_DIRECTION_DOWN:
+    case DIRECTION_DOWN:
         bomb_dy = BOMB_INITIAL_SPEED;
         break;
     default:

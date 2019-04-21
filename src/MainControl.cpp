@@ -57,7 +57,7 @@ int MainControl::init() {
         return 3;
     }
 
-    // Playground
+    // Playground Init
     background_image_path = RESOURCE_BACKGROUND_PATH;
     background_image_texture = nullptr;
     SDL_Surface *background_image_surface = nullptr;
@@ -74,8 +74,31 @@ int MainControl::init() {
         }
     }
 
-    player1.init(PLAYER1_INITIAL_X, PLAYER1_INITIAL_Y, PLAYER_DIRECTION_RIGHT);
-    player2.init(PLAYER2_INITIAL_X, PLAYER2_INITIAL_Y, PLAYER_DIRECTION_LEFT);
+    // Player Init
+    player1_image_path = RESOURCE_PLAYER1_PATH;
+    player2_image_path = RESOURCE_PLAYER2_PATH;
+    player1_image_texture = nullptr;
+    player2_image_texture = nullptr;
+    SDL_Surface *player1_image_surface = nullptr;
+    SDL_Surface *player2_image_surface = nullptr;
+    player1_image_surface = IMG_Load(player1_image_path.c_str());
+    player2_image_surface = IMG_Load(player2_image_path.c_str());
+    if (player1_image_surface == nullptr || player2_image_surface == nullptr) {
+        logSDLError("IMG_Load Player");
+        return 11;
+    } else {
+        player1_image_texture = SDL_CreateTextureFromSurface(renderer, player1_image_surface);
+        SDL_FreeSurface(player1_image_surface);
+        player2_image_texture = SDL_CreateTextureFromSurface(renderer, player2_image_surface);
+        SDL_FreeSurface(player2_image_surface);
+        if (player1_image_texture == nullptr || player2_image_texture == nullptr) {
+            logSDLError("SDL_CreateTextureFromSurface Player");
+            return 4;
+        }
+    }
+
+    player1.init(PLAYER1_INITIAL_X, PLAYER1_INITIAL_Y, PLAYER_INITIAL_WIDTH, PLAYER_INITIAL_HEIGHT, PLAYER_INITIAL_SPEED, PLAYER_INITIAL_HEALTH, PLAYER_INITIAL_MAX_BOMB, PLAYER1_INITIAL_DIRECTION);
+    player2.init(PLAYER2_INITIAL_X, PLAYER2_INITIAL_Y, PLAYER_INITIAL_WIDTH, PLAYER_INITIAL_HEIGHT, PLAYER_INITIAL_SPEED, PLAYER_INITIAL_HEALTH, PLAYER_INITIAL_MAX_BOMB, PLAYER2_INITIAL_DIRECTION);
 
     runMainLoop();
 
@@ -126,6 +149,18 @@ void MainControl::renderBackground() {
 }
 
 void MainControl::renderPlayer() {
+    player1_rect.x = player1.getX();
+    player1_rect.y = player1.getY();
+    player1_rect.w = player1.getWidth();
+    player1_rect.h = player1.getHeight();
+
+    player2_rect.x = player2.getX();
+    player2_rect.y = player2.getY();
+    player2_rect.w = player2.getWidth();
+    player2_rect.h = player2.getHeight();
+
+    SDL_RenderCopy(renderer, player1_image_texture, NULL, &player1_rect);
+    SDL_RenderCopy(renderer, player2_image_texture, NULL, &player2_rect);
 }
 
 void MainControl::renderBomb() {
