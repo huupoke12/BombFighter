@@ -8,6 +8,9 @@ Bomb::Bomb(int _x, int _y) {
     timer = BOMB_INITIAL_TIME;
     radius = BOMB_INITIAL_RADIUS;
     exploded = false;
+    thrown = false;
+}
+void Bomb::bombThrow() {
 }
 void Bomb::explode() {
     //player1.injure();
@@ -17,7 +20,6 @@ void Bomb::explode() {
 bool Bomb::isExploded() {
     return exploded;
 }
-void Bomb::beingThrown(int _dx, int _dy) {
-    dx = _dx;
-    dy = _dy;
+bool Bomb::isThrown() {
+    return thrown;
 }

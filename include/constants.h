@@ -42,5 +42,6 @@ const int BOMB_INITIAL_SPEED = WINDOW_INITIAL_WIDTH / 20;
 const char RESOURCE_BACKGROUND_PATH[] = "res/image/background.jpg";
 const char RESOURCE_PLAYER1_PATH[] = "res/image/player1.png";
 const char RESOURCE_PLAYER2_PATH[] = "res/image/player2.png";
+const char RESOURCE_BOMB_PATH[] = "res/image/bomb.png";
 
 #endif // CONSTANTS_H_INCLUDED

@@ -3,14 +3,15 @@
 
 class Bomb {
 private:
-    float timer, radius;
+    double timer, radius;
     int x, y, dx, dy;
-    bool exploded;
+    bool exploded, thrown;
 public:
     Bomb(int _x, int _y);
+    void bombThrow();
     void explode();
     bool isExploded();
-    void beingThrown(int _dx, int _dy);
+    bool isThrown();
 };
 
 

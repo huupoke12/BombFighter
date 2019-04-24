@@ -81,7 +81,7 @@ void Player::throwBomb() {
     default:
         break;
     }
-    bomb_bag.back().beingThrown(bomb_dx, bomb_dy);
+    //bomb_bag.back().bombThrow(bomb_dx, bomb_dy);
 }
 bool Player::isDead() {
     return (health <= 0) ? true : false;

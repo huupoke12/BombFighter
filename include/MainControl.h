@@ -25,6 +25,8 @@ private:
     SDL_Texture *player1_image_texture;
     std::string player2_image_path;
     SDL_Texture *player2_image_texture;
+    std::string bomb_image_path;
+    SDL_Texture *bomb_image_texture;
 
     // Player
     Player player1;
@@ -41,6 +43,7 @@ public:
     void runMainLoop();
     void handleInput();
     void updatePlayer();
+    void updateBomb();
     void renderBackground();
     void renderPlayer();
     void renderBomb();

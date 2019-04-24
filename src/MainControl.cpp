@@ -103,6 +103,23 @@ int MainControl::init() {
     player1.init(PLAYER1_INITIAL_X, PLAYER1_INITIAL_Y, PLAYER_INITIAL_WIDTH, PLAYER_INITIAL_HEIGHT, PLAYER_INITIAL_SPEED, PLAYER_INITIAL_HEALTH, PLAYER_INITIAL_MAX_BOMB, PLAYER1_INITIAL_DIRECTION);
     player2.init(PLAYER2_INITIAL_X, PLAYER2_INITIAL_Y, PLAYER_INITIAL_WIDTH, PLAYER_INITIAL_HEIGHT, PLAYER_INITIAL_SPEED, PLAYER_INITIAL_HEALTH, PLAYER_INITIAL_MAX_BOMB, PLAYER2_INITIAL_DIRECTION);
 
+    // Bomb Init
+    bomb_image_path = RESOURCE_BOMB_PATH;
+    bomb_image_texture = nullptr;
+    SDL_Surface *bomb_image_surface = nullptr;
+    bomb_image_surface = IMG_Load(bomb_image_path.c_str());
+    if (bomb_image_surface == nullptr) {
+        logSDLError("IMG_Load Bomb");
+        return 11;
+    } else {
+        bomb_image_texture = SDL_CreateTextureFromSurface(renderer, bomb_image_surface);
+        SDL_FreeSurface(bomb_image_surface);
+        if (bomb_image_texture == nullptr) {
+            logSDLError("SDL_CreateTextureFromSurface Bomb");
+            return 4;
+        }
+    }
+
     runMainLoop();
     return 0;
 
@@ -115,6 +132,7 @@ void MainControl::runMainLoop() {
     while (!quit) {
         handleInput();
         updatePlayer();
+        updateBomb();
         SDL_RenderClear(renderer);
         renderBackground();
         renderPlayer();
@@ -178,6 +196,9 @@ void MainControl::handleInput() {
 void MainControl::updatePlayer() {
     player1.setTime(dt);
     player2.setTime(dt);
+}
+
+void MainControl::updateBomb() {
 }
 
 void MainControl::renderBackground() {
