@@ -100,8 +100,8 @@ int MainControl::init() {
         }
     }
 
-    player1.init(PLAYER1_INITIAL_X, PLAYER1_INITIAL_Y, PLAYER_INITIAL_WIDTH, PLAYER_INITIAL_HEIGHT, PLAYER_INITIAL_SPEED, PLAYER_INITIAL_HEALTH, PLAYER_INITIAL_MAX_BOMB, PLAYER1_INITIAL_DIRECTION);
-    player2.init(PLAYER2_INITIAL_X, PLAYER2_INITIAL_Y, PLAYER_INITIAL_WIDTH, PLAYER_INITIAL_HEIGHT, PLAYER_INITIAL_SPEED, PLAYER_INITIAL_HEALTH, PLAYER_INITIAL_MAX_BOMB, PLAYER2_INITIAL_DIRECTION);
+    player1.init(PLAYER1_INITIAL_X, PLAYER1_INITIAL_Y, PLAYER_INITIAL_WIDTH, PLAYER_INITIAL_HEIGHT, PLAYER_INITIAL_SPEED_X, PLAYER_INITIAL_SPEED_Y, PLAYER_INITIAL_HEALTH, PLAYER_INITIAL_MAX_BOMB, PLAYER1_INITIAL_DIRECTION);
+    player2.init(PLAYER2_INITIAL_X, PLAYER2_INITIAL_Y, PLAYER_INITIAL_WIDTH, PLAYER_INITIAL_HEIGHT, PLAYER_INITIAL_SPEED_X, PLAYER_INITIAL_SPEED_Y, PLAYER_INITIAL_HEALTH, PLAYER_INITIAL_MAX_BOMB, PLAYER2_INITIAL_DIRECTION);
 
     // Bomb Init
     bomb_image_path = RESOURCE_BOMB_PATH;
@@ -174,6 +174,12 @@ void MainControl::handleInput() {
                 case SDL_SCANCODE_D:
                     player1.moveRight();
                     break;
+                case SDL_SCANCODE_G:
+                    player1.useBomb();
+                    break;
+                case SDL_SCANCODE_H:
+                    player1.useShield();
+                    break;
                 case SDL_SCANCODE_UP:
                     player2.moveUp();
                     break;
@@ -185,6 +191,12 @@ void MainControl::handleInput() {
                     break;
                 case SDL_SCANCODE_RIGHT:
                     player2.moveRight();
+                    break;
+                case SDL_SCANCODE_APOSTROPHE:
+                    player2.useBomb();
+                    break;
+                case SDL_SCANCODE_SEPARATOR:
+                    player2.useShield();
                     break;
                 default:
                     break;

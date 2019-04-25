@@ -1,15 +1,17 @@
 #include "Player.h"
 #include "constants.h"
 
-void Player::init(int _x, int _y, int _width, int _height, int _speed, int _health, int _max_bomb, char _direction) {
+void Player::init(int _x, int _y, int _width, int _height, int _speed_x, int _speed_y, int _health, int _max_bomb, char _direction) {
     x = _x;
     y = _y;
     width = _width;
     height = _height;
-    speed = _speed;
+    speed_x = _speed_x;
+    speed_y = _speed_y;
     health = _health;
     max_bomb = _max_bomb;
     direction = _direction;
+    holding_bomb = false;
 }
 int Player::getX() {
     return x;
@@ -32,28 +34,28 @@ void Player::setTime(unsigned int _dt) {
 
 // TODO: Replace the constants by variables
 void Player::moveLeft() {
-    double dx = (speed * dt / 1000);
+    double dx = (speed_x * dt / 1000);
     if (x - dx - width / 2 >= 0){
         x -= dx;
     }
     direction = DIRECTION_LEFT;
 }
 void Player::moveRight() {
-    double dx = (speed * dt / 1000);
+    double dx = (speed_x * dt / 1000);
     if (x + dx + width / 2 <= WINDOW_INITIAL_WIDTH){
         x += dx;
     }
     direction = DIRECTION_RIGHT;
 }
 void Player::moveUp() {
-    double dy = (speed * dt / 1000);
+    double dy = (speed_y * dt / 1000);
     if (y - dy - height / 2 >= 0){
         y -= dy;
     }
     direction = DIRECTION_UP;
 }
 void Player::moveDown() {
-    double dy = (speed * dt / 1000);
+    double dy = (speed_y * dt / 1000);
     if (y + dy + height / 2 <= WINDOW_INITIAL_HEIGHT){
         y += dy;
     }
@@ -85,6 +87,17 @@ void Player::throwBomb() {
         break;
     }
     //bomb_bag.back().bombThrow(bomb_dx, bomb_dy);
+}
+void Player::useBomb() {
+    if (holding_bomb) {
+        bombs.back().bombThrow();
+        holding_bomb = false;
+    } else {
+        bombs.push_back(Bomb(x, y));
+        holding_bomb = true;
+    }
+}
+void Player::useShield() {
 }
 bool Player::isDead() {
     return (health <= 0) ? true : false;
