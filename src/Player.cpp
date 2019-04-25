@@ -23,6 +23,9 @@ int Player::getWidth() {
 int Player::getHeight() {
     return height;
 }
+char Player::getDirection() {
+    return direction;
+}
 void Player::setTime(unsigned int _dt) {
     dt = _dt;
 }
@@ -60,7 +63,7 @@ void Player::injure(int damage) {
     health -= damage;
 }
 void Player::createBomb() {
-    bomb_bag.push_back(Bomb(x, y));
+    bombs.push_back(Bomb(x, y));
 }
 void Player::throwBomb() {
     int bomb_dx = 0;

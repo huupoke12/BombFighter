@@ -206,18 +206,49 @@ void MainControl::renderBackground() {
 }
 
 void MainControl::renderPlayer() {
+    double player1_angle = 0;
     player1_rect.x = player1.getX() - player1.getWidth() / 2;
     player1_rect.y = player1.getY() - player1.getHeight() / 2;
     player1_rect.w = player1.getWidth();
     player1_rect.h = player1.getHeight();
 
+    double player2_angle = 0;
     player2_rect.x = player2.getX() - player2.getWidth() / 2;
     player2_rect.y = player2.getY() - player2.getHeight() / 2;
     player2_rect.w = player2.getWidth();
     player2_rect.h = player2.getHeight();
 
-    SDL_RenderCopy(renderer, player1_image_texture, NULL, &player1_rect);
-    SDL_RenderCopy(renderer, player2_image_texture, NULL, &player2_rect);
+    switch (player1.getDirection()) {
+    case DIRECTION_UP:
+        player1_angle = ROTATE_UP_ANGLE;
+        break;
+    case DIRECTION_DOWN:
+        player1_angle = ROTATE_DOWN_ANGLE;
+        break;
+    case DIRECTION_LEFT:
+        player1_angle = ROTATE_LEFT_ANGLE;
+        break;
+    case DIRECTION_RIGHT:
+        player1_angle = ROTATE_RIGHT_ANGLE;
+        break;
+    }
+
+    switch (player2.getDirection()) {
+    case DIRECTION_UP:
+        player2_angle = ROTATE_UP_ANGLE;
+        break;
+    case DIRECTION_DOWN:
+        player2_angle = ROTATE_DOWN_ANGLE;
+        break;
+    case DIRECTION_LEFT:
+        player2_angle = ROTATE_LEFT_ANGLE;
+        break;
+    case DIRECTION_RIGHT:
+        player2_angle = ROTATE_RIGHT_ANGLE;
+        break;
+    }
+    SDL_RenderCopyEx(renderer, player1_image_texture, NULL, &player1_rect, player1_angle, NULL, SDL_FLIP_NONE);
+    SDL_RenderCopyEx(renderer, player2_image_texture, NULL, &player2_rect, player2_angle, NULL, SDL_FLIP_NONE);
 }
 
 void MainControl::renderBomb() {

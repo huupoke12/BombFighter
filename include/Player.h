@@ -10,7 +10,7 @@ private:
     int x, y, width, height, speed, health;
     int max_bomb;
     char direction;
-    std::vector<Bomb> bomb_bag;
+    std::vector<Bomb> bombs;
     unsigned int dt;
 
 public:
@@ -19,6 +19,7 @@ public:
     int getY();
     int getWidth();
     int getHeight();
+    char getDirection();
     void setTime(unsigned int dt);
     void moveLeft();
     void moveRight();

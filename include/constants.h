@@ -16,6 +16,11 @@ const char DIRECTION_LEFT = '4';
 const char DIRECTION_RIGHT = '6';
 const char DIRECTION_DOWN = '8';
 
+const double ROTATE_UP_ANGLE = 0;
+const double ROTATE_RIGHT_ANGLE = 90;
+const double ROTATE_DOWN_ANGLE = 180;
+const double ROTATE_LEFT_ANGLE = 270;
+
 // Player
 
 const int PLAYER_INITIAL_HEALTH = 100;
