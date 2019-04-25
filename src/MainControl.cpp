@@ -211,6 +211,22 @@ void MainControl::updatePlayer() {
 }
 
 void MainControl::updateBomb() {
+    for (std::vector<Bomb>::iterator bomb1 = player1.getBombs().begin() ; bomb1 != player1.getBombs().end(); ++bomb1) {
+        (*bomb1).setTime(dt);
+        if (!(*bomb1).isThrown()) {
+            (*bomb1).setPosition(player1.getX(), player1.getY(), player1.getDirection());
+        }
+        (*bomb1).updatePosition();
+        (*bomb1).updateTimer();
+    }
+    for (std::vector<Bomb>::iterator bomb2 = player2.getBombs().begin() ; bomb2 != player2.getBombs().end(); ++bomb2) {
+        (*bomb2).setTime(dt);
+        if (!(*bomb2).isThrown()) {
+            (*bomb2).setPosition(player2.getX(), player2.getY(), player2.getDirection());
+        }
+        (*bomb2).updatePosition();
+        (*bomb2).updateTimer();
+    }
 }
 
 void MainControl::renderBackground() {
@@ -264,5 +280,26 @@ void MainControl::renderPlayer() {
 }
 
 void MainControl::renderBomb() {
+    int bomb_x, bomb_y, bomb_radius;
+    for (std::vector<Bomb>::iterator it = player1.getBombs().begin() ; it != player1.getBombs().end(); ++it) {
+        bomb_x = (*it).getX();
+        bomb_y = (*it).getY();
+        bomb_radius = (*it).getRadius();
+        bomb_rect.x = bomb_x - bomb_radius;
+        bomb_rect.y = bomb_y - bomb_radius;
+        bomb_rect.w = bomb_radius * 2;
+        bomb_rect.h = bomb_radius * 2;
+        SDL_RenderCopy(renderer, bomb_image_texture, NULL, &bomb_rect);
+    }
+    for (std::vector<Bomb>::iterator it = player2.getBombs().begin() ; it != player2.getBombs().end(); ++it) {
+        bomb_x = (*it).getX();
+        bomb_y = (*it).getY();
+        bomb_radius = (*it).getRadius();
+        bomb_rect.x = bomb_x - bomb_radius;
+        bomb_rect.y = bomb_y - bomb_radius;
+        bomb_rect.w = bomb_radius * 2;
+        bomb_rect.h = bomb_radius * 2;
+        SDL_RenderCopy(renderer, bomb_image_texture, NULL, &bomb_rect);
+    }
 }
 

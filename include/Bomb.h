@@ -3,12 +3,25 @@
 
 class Bomb {
 private:
-    double timer, radius;
-    int x, y, dx, dy;
+    double timer, radius, speed_x, speed_y;
+    int x, y;
     bool exploded, thrown;
+    char direction;
+    unsigned int dt;
 public:
-    Bomb(int _x, int _y);
-    void bombThrow();
+    Bomb(int _x, int _y, char _direction);
+    int getRadius();
+    int getX();
+    int getY();
+    void setTime(unsigned int _dt);
+    void setPosition(int _x, int _y, char _direction);
+    void updatePosition();
+    void updateTimer();
+    void moveUp();
+    void moveDown();
+    void moveLeft();
+    void moveRight();
+    void bombThrow(int _speed_x, int _speed_y, char _direction);
     void explode();
     bool isExploded();
     bool isThrown();

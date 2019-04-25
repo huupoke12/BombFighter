@@ -21,6 +21,7 @@ public:
     int getWidth();
     int getHeight();
     char getDirection();
+    std::vector<Bomb>& getBombs();
     void setTime(unsigned int dt);
     void moveLeft();
     void moveRight();

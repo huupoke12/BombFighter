@@ -34,6 +34,9 @@ private:
     Player player2;
     SDL_Rect player2_rect;
 
+    // Bomb
+    SDL_Rect bomb_rect;
+
 
 public:
     MainControl(const char* _title, int _width, int _height, int _fps);

@@ -28,6 +28,9 @@ int Player::getHeight() {
 char Player::getDirection() {
     return direction;
 }
+std::vector<Bomb>& Player::getBombs() {
+    return bombs;
+}
 void Player::setTime(unsigned int _dt) {
     dt = _dt;
 }
@@ -64,36 +67,13 @@ void Player::moveDown() {
 void Player::injure(int damage) {
     health -= damage;
 }
-void Player::createBomb() {
-    bombs.push_back(Bomb(x, y));
-}
-void Player::throwBomb() {
-    int bomb_dx = 0;
-    int bomb_dy = 0;
-    switch (direction) {
-    case DIRECTION_LEFT:
-        bomb_dx = -BOMB_INITIAL_SPEED;
-        break;
-    case DIRECTION_RIGHT:
-        bomb_dx = BOMB_INITIAL_SPEED;
-        break;
-    case DIRECTION_UP:
-        bomb_dy = -BOMB_INITIAL_SPEED;
-        break;
-    case DIRECTION_DOWN:
-        bomb_dy = BOMB_INITIAL_SPEED;
-        break;
-    default:
-        break;
-    }
-    //bomb_bag.back().bombThrow(bomb_dx, bomb_dy);
-}
+
 void Player::useBomb() {
     if (holding_bomb) {
-        bombs.back().bombThrow();
+        bombs.back().bombThrow(BOMB_INITIAL_SPEED_X, BOMB_INITIAL_SPEED_Y, direction);
         holding_bomb = false;
     } else {
-        bombs.push_back(Bomb(x, y));
+        bombs.push_back(Bomb(x, y, direction));
         holding_bomb = true;
     }
 }
