@@ -1,4 +1,7 @@
+#include <cmath>
+#include <iostream>
 #include "Bomb.h"
+#include "Player.h"
 #include "constants.h"
 
 // Constructor
@@ -7,7 +10,9 @@ Bomb::Bomb(int _x, int _y, char _direction) {
     y = _y;
     direction = _direction;
     timer = BOMB_INITIAL_TIME;
+    damage = BOMB_INITIAL_DAMAGE;
     radius = BOMB_INITIAL_RADIUS;
+    blast_factor = BOMB_INITIAL_BLAST_FACTOR;
     speed_x = 0;
     speed_y = 0;
     exploded = false;
@@ -21,6 +26,9 @@ int Bomb::getX() {
 }
 int Bomb::getY() {
     return y;
+}
+double Bomb::getTimer() {
+    return timer;
 }
 void Bomb::setTime(unsigned int _dt) {
     dt = _dt;
@@ -84,9 +92,6 @@ void Bomb::updatePosition() {
 }
 void Bomb::updateTimer() {
     timer -= dt;
-    if (timer <= 0) {
-        explode();
-    }
 }
 void Bomb::bombThrow(int _speed_x, int _speed_y, char _direction) {
     speed_x = _speed_x;
@@ -94,10 +99,27 @@ void Bomb::bombThrow(int _speed_x, int _speed_y, char _direction) {
     direction = _direction;
     thrown = true;
 }
-void Bomb::explode() {
-    //player1.injure();
-    //player2.injure();
+void Bomb::checkExplode(Player &player1, Player &player2) {
+    bool collide1 = ((abs(player1.getX() - x) - radius - player1.getWidth() / 2) < 0) && ((abs(player1.getY() - y) - radius - player1.getHeight() / 2) < 0);
+    bool collide2 = ((abs(player2.getX() - x) - radius - player2.getWidth() / 2) < 0) && ((abs(player2.getY() - y) - radius - player2.getHeight() / 2) < 0);
+    if ((thrown && (collide1 || collide2) ) || timer <= 0) {
+        explode(player1, player2);
+    }
+}
+void Bomb::explode(Player &player1, Player &player2) {
+    double distance1 = sqrt(pow(abs(player1.getX() - x), 2) + pow(abs(player1.getY() - y), 2));
+    double distance2 = sqrt(pow(abs(player2.getX() - x), 2) + pow(abs(player2.getY() - y), 2));
+    int damage1 = damage * (blast_factor * radius / pow(distance1, 1.5));
+    int damage2 = damage * (blast_factor * radius / pow(distance2, 1.5));
+    if (damage1 > 0) {
+        player1.injure(damage1);
+    }
+    if (damage2 > 0) {
+        player2.injure(damage2);
+    }
     exploded = true;
+    std::cout << "Player1's HP: " << player1.getHealth() << std::endl;
+    std::cout << "Player2's HP: " << player2.getHealth() << std::endl;
 }
 bool Bomb::isExploded() {
     return exploded;

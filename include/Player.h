@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "Bomb.h"
+class Bomb;
 
 class Player {
 private:
@@ -21,6 +21,7 @@ public:
     int getWidth();
     int getHeight();
     char getDirection();
+    int getHealth();
     std::vector<Bomb>& getBombs();
     void setTime(unsigned int dt);
     void moveLeft();

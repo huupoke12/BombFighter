@@ -1,6 +1,7 @@
 #include <SDL_image.h>
 #include "MainControl.h"
 #include "Player.h"
+#include "Bomb.h"
 #include "constants.h"
 
 // Constructor
@@ -208,24 +209,88 @@ void MainControl::handleInput() {
 void MainControl::updatePlayer() {
     player1.setTime(dt);
     player2.setTime(dt);
+
+    if (player1.isDead()) {
+        //Gameover
+    }
+    if (player2.isDead()) {
+        //Gameover
+    }
 }
 
 void MainControl::updateBomb() {
+    int bomb_x, bomb_y;
     for (std::vector<Bomb>::iterator bomb1 = player1.getBombs().begin() ; bomb1 != player1.getBombs().end(); ++bomb1) {
         (*bomb1).setTime(dt);
         if (!(*bomb1).isThrown()) {
-            (*bomb1).setPosition(player1.getX(), player1.getY(), player1.getDirection());
+            switch (player1.getDirection()) {
+            case DIRECTION_UP:
+                bomb_x = player1.getX();
+                bomb_y = player1.getY() - player1.getHeight() / 2 - (*bomb1).getRadius();
+                break;
+            case DIRECTION_RIGHT:
+                bomb_x = player1.getX() + player1.getWidth() / 2 + (*bomb1).getRadius();
+                bomb_y = player1.getY();
+                break;
+            case DIRECTION_DOWN:
+                bomb_x = player1.getX();
+                bomb_y = player1.getY() + player1.getHeight() / 2 + (*bomb1).getRadius();
+                break;
+            case DIRECTION_LEFT:
+                bomb_x = player1.getX() - player1.getWidth() / 2 - (*bomb1).getRadius();
+                bomb_y = player1.getY();
+                break;
+            default:
+                bomb_x = 0;
+                bomb_y = 0;
+            }
+            (*bomb1).setPosition(bomb_x, bomb_y, player1.getDirection());
+            // std::cout << bomb_x <<  " " << bomb_y << std::endl;
+            // std::cout << player1.getX() <<  " " << player1.getY() << std::endl;
         }
+
         (*bomb1).updatePosition();
         (*bomb1).updateTimer();
+        (*bomb1).checkExplode(player1, player2);
+        if ((*bomb1).isExploded()) {
+            // std::cout << "BOMB1 Exploded" << std::endl;
+            player1.getBombs().erase(bomb1);
+            --bomb1;
+        }
     }
     for (std::vector<Bomb>::iterator bomb2 = player2.getBombs().begin() ; bomb2 != player2.getBombs().end(); ++bomb2) {
         (*bomb2).setTime(dt);
         if (!(*bomb2).isThrown()) {
-            (*bomb2).setPosition(player2.getX(), player2.getY(), player2.getDirection());
+            switch (player2.getDirection()) {
+            case DIRECTION_UP:
+                bomb_x = player2.getX();
+                bomb_y = player2.getY() - player2.getHeight() / 2 - (*bomb2).getRadius();
+                break;
+            case DIRECTION_RIGHT:
+                bomb_x = player2.getX() + player2.getWidth() / 2 + (*bomb2).getRadius();
+                bomb_y = player2.getY();
+                break;
+            case DIRECTION_DOWN:
+                bomb_x = player2.getX();
+                bomb_y = player2.getY() + player2.getHeight() / 2 + (*bomb2).getRadius();
+                break;
+            case DIRECTION_LEFT:
+                bomb_x = player2.getX() - player2.getWidth() / 2 - (*bomb2).getRadius();
+                bomb_y = player2.getY();
+                break;
+            default:
+                bomb_x = 0;
+                bomb_y = 0;
+            }
+            (*bomb2).setPosition(bomb_x, bomb_y, player2.getDirection());
         }
         (*bomb2).updatePosition();
         (*bomb2).updateTimer();
+        (*bomb2).checkExplode(player1, player2);
+        if ((*bomb2).isExploded()) {
+            player2.getBombs().erase(bomb2);
+            --bomb2;
+        }
     }
 }
 

@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Bomb.h"
 #include "constants.h"
 
 void Player::init(int _x, int _y, int _width, int _height, int _speed_x, int _speed_y, int _health, int _max_bomb, char _direction) {
@@ -27,6 +28,9 @@ int Player::getHeight() {
 }
 char Player::getDirection() {
     return direction;
+}
+int Player::getHealth() {
+    return health;
 }
 std::vector<Bomb>& Player::getBombs() {
     return bombs;
@@ -73,7 +77,29 @@ void Player::useBomb() {
         bombs.back().bombThrow(BOMB_INITIAL_SPEED_X, BOMB_INITIAL_SPEED_Y, direction);
         holding_bomb = false;
     } else {
-        bombs.push_back(Bomb(x, y, direction));
+        int bomb_x, bomb_y;
+        switch (direction) {
+        case DIRECTION_UP:
+            bomb_x = x;
+            bomb_y = y - height / 2 - BOMB_INITIAL_RADIUS;
+            break;
+        case DIRECTION_RIGHT:
+            bomb_x = x + width / 2 + BOMB_INITIAL_RADIUS;
+            bomb_y = y;
+            break;
+        case DIRECTION_DOWN:
+            bomb_x = x;
+            bomb_y = y + height / 2 + BOMB_INITIAL_RADIUS;
+            break;
+        case DIRECTION_LEFT:
+            bomb_x = x - width / 2 - BOMB_INITIAL_RADIUS;
+            bomb_y = y;
+            break;
+        default:
+            bomb_x = 0;
+            bomb_y = 0;
+        }
+        bombs.push_back(Bomb(bomb_x, bomb_y, direction));
         holding_bomb = true;
     }
 }
