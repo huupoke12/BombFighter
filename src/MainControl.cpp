@@ -2,6 +2,7 @@
 #include "MainControl.h"
 #include "Player.h"
 #include "Bomb.h"
+#include "Explosion.h"
 #include "constants.h"
 
 // Constructor
@@ -121,6 +122,23 @@ int MainControl::init() {
         }
     }
 
+    // Explosion Init
+    explosion_image_path = RESOURCE_EXPLOSION_PATH;
+    explosion_image_texture = nullptr;
+    SDL_Surface *explosion_image_surface = nullptr;
+    explosion_image_surface = IMG_Load(explosion_image_path.c_str());
+    if (explosion_image_surface == nullptr) {
+        logSDLError("IMG_Load Explosion");
+        return 11;
+    } else {
+        explosion_image_texture = SDL_CreateTextureFromSurface(renderer, explosion_image_surface);
+        SDL_FreeSurface(explosion_image_surface);
+        if (explosion_image_texture == nullptr) {
+            logSDLError("SDL_CreateTextureFromSurface Explosion");
+            return 4;
+        }
+    }
+
     runMainLoop();
     return 0;
 
@@ -134,10 +152,12 @@ void MainControl::runMainLoop() {
         handleInput();
         updatePlayer();
         updateBomb();
+        updateExplosion();
         SDL_RenderClear(renderer);
         renderBackground();
         renderPlayer();
         renderBomb();
+        renderExplosion();
         SDL_RenderPresent(renderer);
 
         // Delay
@@ -255,6 +275,7 @@ void MainControl::updateBomb() {
             if (bomb1 == player1.getBombs().end() - 1) {
                 player1.setHoldingBomb(false);
             }
+            explosion_vector.push_back(Explosion((*bomb1).getX(), (*bomb1).getY(), (*bomb1).getRadius()*4, EXPLOSION_INITIAL_DURATION));
             player1.getBombs().erase(bomb1);
             --bomb1;
         }
@@ -292,8 +313,20 @@ void MainControl::updateBomb() {
             if (bomb2 == player2.getBombs().end() - 1) {
                 player2.setHoldingBomb(false);
             }
+            explosion_vector.push_back(Explosion((*bomb2).getX(), (*bomb2).getY(), (*bomb2).getRadius()*4, EXPLOSION_INITIAL_DURATION));
             player2.getBombs().erase(bomb2);
             --bomb2;
+        }
+    }
+}
+
+void MainControl::updateExplosion() {
+    for (std::vector<Explosion>::iterator it = explosion_vector.begin() ; it != explosion_vector.end(); ++it) {
+        (*it).setTime(dt);
+        (*it).updateDuration();
+        if ((*it).getDuration() <= 0) {
+            explosion_vector.erase(it);
+            --it;
         }
     }
 }
@@ -369,6 +402,16 @@ void MainControl::renderBomb() {
         bomb_rect.w = bomb_radius * 2;
         bomb_rect.h = bomb_radius * 2;
         SDL_RenderCopy(renderer, bomb_image_texture, NULL, &bomb_rect);
+    }
+}
+
+void MainControl::renderExplosion() {
+    for (std::vector<Explosion>::iterator it = explosion_vector.begin() ; it != explosion_vector.end(); ++it) {
+        explosion_rect.x = (*it).getX() - (*it).getRadius() / 2;
+        explosion_rect.y = (*it).getY() - (*it).getRadius() / 2;
+        explosion_rect.w = (*it).getRadius() * 2;
+        explosion_rect.h = (*it).getRadius() * 2;
+        SDL_RenderCopy(renderer, explosion_image_texture, NULL, &explosion_rect);
     }
 }
 

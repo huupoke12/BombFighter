@@ -27,7 +27,7 @@ int Bomb::getX() {
 int Bomb::getY() {
     return y;
 }
-double Bomb::getTimer() {
+int Bomb::getTimer() {
     return timer;
 }
 void Bomb::setTime(unsigned int _dt) {
@@ -118,6 +118,7 @@ void Bomb::explode(Player &player1, Player &player2) {
         player2.injure(damage2);
     }
     exploded = true;
+
     std::cout << "Player1's HP: " << player1.getHealth() << std::endl;
     std::cout << "Player2's HP: " << player2.getHealth() << std::endl;
 }

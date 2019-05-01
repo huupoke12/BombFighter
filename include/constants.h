@@ -47,10 +47,14 @@ const int BOMB_INITIAL_DAMAGE = 100;
 const int BOMB_INITIAL_SPEED_X = WINDOW_INITIAL_WIDTH / 4;
 const int BOMB_INITIAL_SPEED_Y = BOMB_INITIAL_SPEED_X;
 
+// Explosion
+const int EXPLOSION_INITIAL_DURATION = 500;
+
 // Resources
 const char RESOURCE_BACKGROUND_PATH[] = "res/image/background.jpg";
 const char RESOURCE_PLAYER1_PATH[] = "res/image/player1.png";
 const char RESOURCE_PLAYER2_PATH[] = "res/image/player2.png";
 const char RESOURCE_BOMB_PATH[] = "res/image/bomb.png";
+const char RESOURCE_EXPLOSION_PATH[] = "res/image/explosion.png";
 
 #endif // CONSTANTS_H_INCLUDED

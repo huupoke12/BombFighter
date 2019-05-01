@@ -5,6 +5,7 @@
 #include <string>
 #include <SDL.h>
 #include "Player.h"
+#include "Explosion.h"
 
 class MainControl {
 private:
@@ -27,6 +28,8 @@ private:
     SDL_Texture *player2_image_texture;
     std::string bomb_image_path;
     SDL_Texture *bomb_image_texture;
+    std::string explosion_image_path;
+    SDL_Texture *explosion_image_texture;
 
     // Player
     Player player1;
@@ -37,6 +40,9 @@ private:
     // Bomb
     SDL_Rect bomb_rect;
 
+    // Explosion
+    SDL_Rect explosion_rect;
+    std::vector<Explosion> explosion_vector;
 
 public:
     MainControl(const char* _title, int _width, int _height, int _fps);
@@ -47,9 +53,11 @@ public:
     void handleInput();
     void updatePlayer();
     void updateBomb();
+    void updateExplosion();
     void renderBackground();
     void renderPlayer();
     void renderBomb();
+    void renderExplosion();
 };
 
 
