@@ -1,3 +1,5 @@
+#include <cmath>
+
 #include "Player.h"
 #include "Bomb.h"
 #include "constants.h"
@@ -40,30 +42,38 @@ void Player::setTime(unsigned int _dt) {
 }
 
 // TODO: Replace the constants by variables
-void Player::moveLeft() {
+void Player::moveLeft(Player &enemy) {
     double dx = (speed_x * dt / 1000);
-    if (x - dx - width / 2 >= 0){
+    bool x_collide = ((x - dx - width / 2) <= (enemy.getX() + enemy.getWidth() / 2)) && ((x - dx - width / 2) >= (enemy.getX() - enemy.getWidth() / 2));
+    bool enemy_collide = (x_collide && (abs(y - enemy.getY()) - height / 2 - enemy.getHeight() / 2) <= 0);
+    if ((x - dx - width / 2 >= 0) && !enemy_collide) {
         x -= dx;
     }
     direction = DIRECTION_LEFT;
 }
-void Player::moveRight() {
+void Player::moveRight(Player &enemy) {
     double dx = (speed_x * dt / 1000);
-    if (x + dx + width / 2 <= WINDOW_INITIAL_WIDTH){
+    bool x_collide = ((x + dx + width / 2) >= (enemy.getX() - enemy.getWidth() / 2)) && ((x + dx + width / 2) <= (enemy.getX() + enemy.getWidth() / 2));
+    bool enemy_collide = (x_collide && (abs(y - enemy.getY()) - height / 2 - enemy.getHeight() / 2) <= 0);
+    if ((x + dx + width / 2 <= WINDOW_INITIAL_WIDTH) && !enemy_collide) {
         x += dx;
     }
     direction = DIRECTION_RIGHT;
 }
-void Player::moveUp() {
+void Player::moveUp(Player &enemy) {
     double dy = (speed_y * dt / 1000);
-    if (y - dy - height / 2 >= 0){
+    bool y_collide = ((y - dy - height / 2) <= (enemy.getY() + enemy.getHeight() / 2)) && ((y - dy - height / 2) >= (enemy.getY() - enemy.getHeight() / 2));
+    bool enemy_collide = (y_collide && (abs(x - enemy.getX()) - width / 2 - enemy.getWidth() / 2) <= 0);
+    if ((y - dy - height / 2 >= 0) && !enemy_collide) {
         y -= dy;
     }
     direction = DIRECTION_UP;
 }
-void Player::moveDown() {
+void Player::moveDown(Player &enemy) {
     double dy = (speed_y * dt / 1000);
-    if (y + dy + height / 2 <= WINDOW_INITIAL_HEIGHT){
+    bool y_collide = ((y + dy + height / 2) >= (enemy.getY() - enemy.getHeight() / 2)) && ((y + dy + height / 2) <= (enemy.getY() + enemy.getHeight() / 2));
+    bool enemy_collide = (y_collide && (abs(x - enemy.getX()) - width / 2 - enemy.getWidth() / 2) <= 0);
+    if ((y + dy + height / 2 <= WINDOW_INITIAL_HEIGHT) && !enemy_collide) {
         y += dy;
     }
     direction = DIRECTION_DOWN;

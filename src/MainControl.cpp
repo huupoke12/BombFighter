@@ -164,16 +164,16 @@ void MainControl::handleInput() {
             }
             switch (event.key.keysym.scancode) {
                 case SDL_SCANCODE_W:
-                    player1.moveUp();
+                    player1.moveUp(player2);
                     break;
                 case SDL_SCANCODE_S:
-                    player1.moveDown();
+                    player1.moveDown(player2);
                     break;
                 case SDL_SCANCODE_A:
-                    player1.moveLeft();
+                    player1.moveLeft(player2);
                     break;
                 case SDL_SCANCODE_D:
-                    player1.moveRight();
+                    player1.moveRight(player2);
                     break;
                 case SDL_SCANCODE_G:
                     player1.useBomb();
@@ -182,16 +182,16 @@ void MainControl::handleInput() {
                     player1.useShield();
                     break;
                 case SDL_SCANCODE_UP:
-                    player2.moveUp();
+                    player2.moveUp(player1);
                     break;
                 case SDL_SCANCODE_DOWN:
-                    player2.moveDown();
+                    player2.moveDown(player1);
                     break;
                 case SDL_SCANCODE_LEFT:
-                    player2.moveLeft();
+                    player2.moveLeft(player1);
                     break;
                 case SDL_SCANCODE_RIGHT:
-                    player2.moveRight();
+                    player2.moveRight(player1);
                     break;
                 case SDL_SCANCODE_APOSTROPHE:
                     player2.useBomb();
@@ -245,15 +245,13 @@ void MainControl::updateBomb() {
                 bomb_y = 0;
             }
             (*bomb1).setPosition(bomb_x, bomb_y, player1.getDirection());
-            // std::cout << bomb_x <<  " " << bomb_y << std::endl;
-            // std::cout << player1.getX() <<  " " << player1.getY() << std::endl;
+
         }
 
         (*bomb1).updatePosition();
         (*bomb1).updateTimer();
         (*bomb1).checkExplode(player1, player2);
         if ((*bomb1).isExploded()) {
-            // std::cout << "BOMB1 Exploded" << std::endl;
             player1.getBombs().erase(bomb1);
             --bomb1;
         }

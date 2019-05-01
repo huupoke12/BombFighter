@@ -24,10 +24,10 @@ public:
     int getHealth();
     std::vector<Bomb>& getBombs();
     void setTime(unsigned int dt);
-    void moveLeft();
-    void moveRight();
-    void moveUp();
-    void moveDown();
+    void moveLeft(Player &enemy);
+    void moveRight(Player &enemy);
+    void moveUp(Player &enemy);
+    void moveDown(Player &enemy);
     void injure(int damage);
     void createBomb();
     void throwBomb();
