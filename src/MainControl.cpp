@@ -182,6 +182,39 @@ void MainControl::handleInput() {
                     quit = true;
                     break;
             }
+            /* Just in case
+            if (event.key.keysym.scancode == SDL_SCANCODE_W) {
+                player1.moveUp(player2);
+            }
+            if (event.key.keysym.scancode == SDL_SCANCODE_D) {
+                player1.moveRight(player2);
+            }
+            if (event.key.keysym.scancode == SDL_SCANCODE_S) {
+                player1.moveDown(player2);
+            }
+            if (event.key.keysym.scancode == SDL_SCANCODE_A) {
+                player1.moveLeft(player2);
+            }
+            if (event.key.keysym.scancode == SDL_SCANCODE_G) {
+                player1.useBomb();
+            }
+            if (event.key.keysym.scancode == SDL_SCANCODE_H) {
+                player1.useShield();
+            }
+
+            if (event.key.keysym.scancode == SDL_SCANCODE_UP) {
+                player2.moveUp(player1);
+            }
+            if (event.key.keysym.scancode == SDL_SCANCODE_RIGHT) {
+                player2.moveRight(player1);
+            }
+            if (event.key.keysym.scancode == SDL_SCANCODE_DOWN) {
+                player2.moveDown(player1);
+            }
+            if (event.key.keysym.scancode == SDL_SCANCODE_LEFT) {
+                player2.moveLeft(player1);
+            }
+            */
             switch (event.key.keysym.scancode) {
                 case SDL_SCANCODE_W:
                     player1.moveUp(player2);

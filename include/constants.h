@@ -48,7 +48,7 @@ const int BOMB_INITIAL_SPEED_X = WINDOW_INITIAL_WIDTH / 4;
 const int BOMB_INITIAL_SPEED_Y = BOMB_INITIAL_SPEED_X;
 
 // Explosion
-const int EXPLOSION_INITIAL_DURATION = 500;
+const int EXPLOSION_INITIAL_DURATION = 200;
 
 // Resources
 const char RESOURCE_BACKGROUND_PATH[] = "res/image/background.jpg";
