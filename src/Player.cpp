@@ -40,7 +40,9 @@ std::vector<Bomb>& Player::getBombs() {
 void Player::setTime(unsigned int _dt) {
     dt = _dt;
 }
-
+void Player::setHoldingBomb(bool _holding_bomb) {
+    holding_bomb = _holding_bomb;
+}
 // TODO: Replace the constants by variables
 void Player::moveLeft(Player &enemy) {
     double dx = (speed_x * dt / 1000);

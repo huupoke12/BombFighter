@@ -24,6 +24,7 @@ public:
     int getHealth();
     std::vector<Bomb>& getBombs();
     void setTime(unsigned int dt);
+    void setHoldingBomb(bool _holding_bomb);
     void moveLeft(Player &enemy);
     void moveRight(Player &enemy);
     void moveUp(Player &enemy);

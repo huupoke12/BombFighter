@@ -252,6 +252,9 @@ void MainControl::updateBomb() {
         (*bomb1).updateTimer();
         (*bomb1).checkExplode(player1, player2);
         if ((*bomb1).isExploded()) {
+            if (bomb1 == player1.getBombs().end() - 1) {
+                player1.setHoldingBomb(false);
+            }
             player1.getBombs().erase(bomb1);
             --bomb1;
         }
@@ -286,6 +289,9 @@ void MainControl::updateBomb() {
         (*bomb2).updateTimer();
         (*bomb2).checkExplode(player1, player2);
         if ((*bomb2).isExploded()) {
+            if (bomb2 == player2.getBombs().end() - 1) {
+                player2.setHoldingBomb(false);
+            }
             player2.getBombs().erase(bomb2);
             --bomb2;
         }
