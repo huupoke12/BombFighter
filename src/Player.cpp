@@ -88,7 +88,7 @@ void Player::useBomb() {
     if (holding_bomb) {
         bombs.back().bombThrow(BOMB_INITIAL_SPEED_X, BOMB_INITIAL_SPEED_Y, direction);
         holding_bomb = false;
-    } else {
+    } else if (bombs.size() < max_bomb) {
         int bomb_x, bomb_y;
         switch (direction) {
         case DIRECTION_UP:
