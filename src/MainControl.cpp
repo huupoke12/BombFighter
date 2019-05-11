@@ -300,7 +300,7 @@ void MainControl::updateBomb() {
             (*bomb1).setPosition(bomb_x, bomb_y, player1.getDirection());
 
         }
-
+        (*bomb1).updateSpeed();
         (*bomb1).updatePosition();
         (*bomb1).updateTimer();
         (*bomb1).checkExplode(player1, player2);
@@ -339,6 +339,7 @@ void MainControl::updateBomb() {
             }
             (*bomb2).setPosition(bomb_x, bomb_y, player2.getDirection());
         }
+        (*bomb2).updateSpeed();
         (*bomb2).updatePosition();
         (*bomb2).updateTimer();
         (*bomb2).checkExplode(player1, player2);

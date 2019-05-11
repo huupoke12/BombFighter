@@ -13,6 +13,8 @@ Bomb::Bomb(int _x, int _y, char _direction) {
     damage = BOMB_INITIAL_DAMAGE;
     radius = BOMB_INITIAL_RADIUS;
     blast_factor = BOMB_INITIAL_BLAST_FACTOR;
+    decel_x = BOMB_INITIAL_DECELERATION_X;
+    decel_y = BOMB_INITIAL_DECELERATION_Y;
     speed_x = 0;
     speed_y = 0;
     exploded = false;
@@ -37,6 +39,20 @@ void Bomb::setPosition(int _x, int _y, char _direction) {
     x = _x;
     y = _y;
     direction = _direction;
+}
+void Bomb::updateSpeed() {
+    double new_speed_x = speed_x - decel_x * dt / 1000;
+    double new_speed_y = speed_y - decel_y * dt / 1000;
+    if (new_speed_x > 0) {
+        speed_x = new_speed_x;
+    } else {
+        speed_x = 0;
+    }
+    if (new_speed_y > 0) {
+        speed_y = new_speed_y;
+    } else {
+        speed_y = 0;
+    }
 }
 void Bomb::moveUp() {
     double dy = (speed_y * dt / 1000);

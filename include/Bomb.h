@@ -5,7 +5,7 @@ class Player;
 
 class Bomb {
 private:
-    double blast_factor, speed_x, speed_y;
+    double blast_factor, speed_x, speed_y, decel_x, decel_y;
     int x, y, damage, radius, timer;
     bool exploded, thrown;
     char direction;
@@ -20,6 +20,7 @@ public:
     void setPosition(int _x, int _y, char _direction);
     void updatePosition();
     void updateTimer();
+    void updateSpeed();
     void moveUp();
     void moveDown();
     void moveLeft();
